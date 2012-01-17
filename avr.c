@@ -292,6 +292,7 @@ void cmd_start(int8_t parm) {
 			/* got full start sequence, send full state to host */
 			active = 1;
 			int8_t i;
+			UDR = 0x51;
 			for (i = 0; i < NOUT; i++) {
 				pulserem[i] = 0;
 				osp[i] = 1;
