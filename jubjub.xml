@@ -1,0 +1,20 @@
+<node>
+	<interface name="pl.koriakin.Jubjub.Unit">
+	</interface>
+	<interface name="pl.koriakin.Jubjub.Output">
+		<method name="Pulse">
+			<arg direction="in" type="b" name="long"/>
+		</method>
+		<method name="SetState">
+			<arg direction="in" type="b" name="val"/>
+		</method>
+		<method name="GetState">
+			<arg direction="out" type="b" name="val"/>
+		</method>
+	</interface>
+	<interface name="pl.koriakin.Jubjub.Input">
+		<method name="GetState">
+			<arg direction="out" type="b" name="val"/>
+		</method>
+	</interface>
+</node>

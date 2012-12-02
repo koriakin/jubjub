@@ -1,2 +1,9 @@
 avr.elf
 avr.bin
+CMakeFiles
+CMakeCache.txt
+jubjub-gen.c
+jubjub-gen.h
+Makefile
+cmake_install.cmake
+jubjubd
