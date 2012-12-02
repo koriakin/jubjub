@@ -6,7 +6,7 @@
 #define NOUT 16	/* number of outputs */
 #define NIN 8	/* number of inputs */
 #define HZ 50	/* roughly this many ticks [timer interrupts] per second */
-#define PULSE_SHORT HZ/10	/* 100 ms */
+#define PULSE_SHORT HZ/5	/* 200 ms */
 #define PULSE_LONG HZ*5		/* 5 s */
 #define IRETRY HZ		/* 1s - time between resends of unacked data */
 #define WDTIME 60		/* watchdog seconds until boom */
