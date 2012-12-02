@@ -149,6 +149,19 @@ void wdtick() {
 	}
 }
 
+/* monitor */
+
+uint8_t rxtick = 0;
+uint8_t txtick = 0;
+
+void montick() {
+	PORTD = active << 5 | !!rxtick << 6 | !!txtick << 7;
+	if (rxtick)
+		rxtick--;
+	if (txtick)
+		txtick--;
+}
+
 /* host communication */
 
 /* select one piece of pending information and send it */
@@ -361,10 +374,12 @@ ISR(TIMER0_COMP_vect) {
 	outtick();
 	intick();
 	wdtick();
+	montick();
 }
 
 /* host receive interrupt */
 ISR(USART_RXC_vect) {
+	rxtick = 3;
 	int8_t e = 0;
 	if (UCSRA & 0x1c)
 		e = 1;	
@@ -380,16 +395,18 @@ ISR(USART_RXC_vect) {
 ISR(USART_UDRE_vect) {
 	if (!sbyte())
 		d();
+	else
+		txtick = 3;
 }
 
 int main() {
 	PORTA = 0x00;
 	PORTB = 0x00;
-	PORTC = 0x00;
+	PORTC = 0xff;
 	DDRA = 0xff;
 	DDRB = 0xff;
 	DDRC = 0x00;
-	DDRD = 0;
+	DDRD = 0xe0;
 	/* 160k we want */
 	OCR0 = 155;
 	TCCR0 = 0xd;
@@ -398,7 +415,7 @@ int main() {
 	UCSRB = 0x98;
 	UCSRC = 0x86;
 	UBRRH = 0x00;
-	UBRRL = 0x33;
+	UBRRL = 0x34;
 	err();
 	sei();
 	while(1);
